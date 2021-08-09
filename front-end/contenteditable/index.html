@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>深入浅出 contenteditable 富文本编辑器 - Kain&#039;s Notes</title><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://kainonly.com/front-end/contenteditable/"},"headline":"深入浅出 contenteditable 富文本编辑器","image":["https://kainonly.com/img/contenteditable/contenteditable-1.jpg","https://kainonly.com/img/contenteditable/contenteditable-2.jpg","https://kainonly.com/img/contenteditable/contenteditable-3.jpg","https://kainonly.com/img/contenteditable/contenteditable-4.jpg","https://kainonly.com/img/contenteditable/contenteditable-5.jpg","https://kainonly.com/img/contenteditable/contenteditable-6.jpg","https://kainonly.com/img/contenteditable/contenteditable-7.gif","https://kainonly.com/img/contenteditable/contenteditable-8.jpg","https://kainonly.com/img/contenteditable/contenteditable-9.jpg","https://kainonly.com/img/contenteditable/contenteditable-10.png","https://kainonly.com/img/contenteditable/contenteditable-11.gif","https://kainonly.com/img/contenteditable/contenteditable-12.gif"],"datePublished":"2021-05-13T01:29:40.230Z","dateModified":"2021-05-26T00:51:31.528Z","author":{"@type":"Person","name":"Kain"},"description":"富文本编辑器一直是前端领域的一个天坑，但若不是深入接触编辑器开发的工程师，却不一定清楚富文本编辑器到底坑在哪里，作为有幸和编辑器打了一年交道的前端，今天来聊聊 Web 富文本编辑器的那些事。 作者：Dean hong链接：https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;37051858"}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/vs2015.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=G-J0NVPEBDTM" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-J0NVPEBDTM');</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="Kain&#039;s Notes" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" target="_blank" rel="noopener" href="https://www.yuque.com/kainonly">语雀</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/archives">归档</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/kainonly"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-13T01:29:40.230Z" title="2021/5/13 上午9:29:40">2021-05-13</time>发表</span><span class="level-item"><time dateTime="2021-05-26T00:51:31.528Z" title="2021/5/26 上午8:51:31">2021-05-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/">前端技术</a></span><span class="level-item">24 分钟读完 (大约3588个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">深入浅出 contenteditable 富文本编辑器</h1><div class="content"><p>富文本编辑器一直是前端领域的一个天坑，但若不是深入接触编辑器开发的工程师，却不一定清楚富文本编辑器到底坑在哪里，作为有幸和编辑器打了一年交道的前端，今天来聊聊 Web 富文本编辑器的那些事。</p>
+<p>作者：Dean hong<br>链接：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/37051858">https://zhuanlan.zhihu.com/p/37051858</a></p>
+<span id="more"></span>
+
+<p>通常当我们拿到一个带有富文本编辑器的需求时，我们首先要理清这个需求的使用场景，然后我们可以为这些具体的业务场景选择一款合适的开源富文本编辑器，进行定制开发。看看目前市面上我们可以选择的开源编辑器的实现方式，大致分为两种：</p>
+<h2 id="基于-HTML-DOM-的-Contenteditable-属性来实现"><a href="#基于-HTML-DOM-的-Contenteditable-属性来实现" class="headerlink" title="基于 HTML DOM 的 Contenteditable 属性来实现"></a>基于 HTML DOM 的 Contenteditable 属性来实现</h2><p><em>代表如 UEditor、TinyMCE、Quill</em></p>
+<p>这是使用最久的传统富文本编辑器实现方式，这种实现方式的优势很明显，contenteditable 是浏览器 Dom 的一个原生属性，值为 true 时表示该元素变为可编辑状态。因此原生就直接支持很多内容编辑操作，包括光标位移、内容选择的行为、键盘事件（如方向键控制光标）等等，甚至是富文本编辑所需要用到的绝大部分实现（<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/execCommand">document.execCommand</a>）</p>
+<p>这些原生支持使得性能和输入体验都非常棒，在此基础之上进行二次开发看起来相当容易，辅以 iframe 技术，可以将编辑器放在一个独立的 docment 对象下，与页面的 document 对象分离</p>
+<p>缺点也非常要命，以 <a target="_blank" rel="noopener" href="https://www.oschina.net/translate/why-contenteditable-is-terrible?cmp">why-contenteditable-is-terrible</a> 为代表的文章，几乎说明了一切，总结下来无非是：浏览器兼容性差、用户行为难以控制、难以抽象编辑器内的视图逻辑关系并将它们映射到代码模型中（试想一下你要抽象一个变化规则不可掌控的可变 Dom 结构的逻辑关系）、光标（选区）的视觉位置与逻辑位置可能不吻合</p>
+<p><img src="/img/contenteditable/contenteditable-1.jpg" alt="截取自draft.js的演讲PPT"></p>
+<h2 id="基于自定义-Model-的实现"><a href="#基于自定义-Model-的实现" class="headerlink" title="基于自定义 Model 的实现"></a>基于自定义 Model 的实现</h2><p><em>代表如：draft.js、trix</em></p>
+<p>这种实现方式，简单的来说就是定义一套编辑器内部使用的数据结构（model），与用户在编辑器内所见的 Dom 视图相映射；通过捕获用户的操作行为，由原先的直接操作 Dom，改为更新数据结构状态，再将更新后的状态映射至视图的方式，来实现编辑器的所见即所得，显然操作行为对数据结构的更新是非常可控的</p>
+<p><img src="/img/contenteditable/contenteditable-2.jpg" alt="截取自draft.js的演讲PPT"></p>
+<p>这是一种十分先进的编辑器设计理念，它几乎抛弃了 contenteditable 的特性，这也意味着 contenteditable 所带来的副作用都消失了</p>
+<p>这种实现方式的另一个好处在于，它可以适用于多人在线协作的业务场景。由于用户操作实际影响的是内部的数据结构，且每次操作产生的结果都被控制在一定范围内（只影响部分节点），可以较为容易的通过锁和 diff 算法来合并短时间内的多次修改。</p>
+<p>看起来这显然是一个比 contenteditable 编辑器更好的选择</p>
+<p>遗憾的是目前这种实现方式的开源编辑器可供选择的并不多，实际情况中可能并不能满足所有的开发场景，比如 draft.js 只能基于 react 而且并非开箱即用，而如 trix 这样相对小众的项目在国内则有些水土不服（别问我怎么知道的），如果你目前使用的不是 react 或者就想要一个开箱即用的编辑器去做定制，又没有条件自己造个轮子，在不需要考虑多人协作场景的情况下，我们依然可以从 contenteditable 编辑器上寻求突破</p>
+<p>回过头来看看 contenteditable 编辑器，现实情况其实也没有那么糟糕，毕竟这是使用最为广泛的一种实现方式，拥有大量的实践，这些成熟的开源项目早已为我们提供了解决方案</p>
+<h2 id="来看看它们是怎么做的吧"><a href="#来看看它们是怎么做的吧" class="headerlink" title="来看看它们是怎么做的吧"></a>来看看它们是怎么做的吧</h2><p>以国内熟知的 <strong>UEditor</strong> 为例（也是微信公众号所用的编辑器），它的核心提供了这么几样东西</p>
+<p><strong>dtd 规则：</strong>用来规定编辑器内的 dom 嵌套规则，和过滤方法搭配使用，避免出现 <code>&lt;span&gt;&lt;p&gt;xxx&lt;/p&gt;&lt;/span&gt;</code></p>
+<p><strong>uNode 对象：</strong>根据 HTML DOM 抽象而成的文档模型对象，抽象了 dom 的属性和层级关系，保留了一些 dom 操作的方法（与第二种实现方式的自定义 model 类似），将编辑器内容的 HTML 映射过来之后可以很方便的执行规则过滤，如剔除冗余属性和非白名单标签等</p>
+<p><strong>Range 对象：</strong>光标和选区的信息对象，记录了 当前光标（选区）的开始、结束边界的容器节点和偏移量以及当前光标（选区）的闭合状态，还提供了一系列对光标（选区）操作的 API</p>
+<p><strong>EventBase：</strong>提供注册、销毁和触发自定义事件监听器的方法，用来生成一些钩子</p>
+<p><strong>execCommand 指令集：</strong>document.execCommand 增强版，执行指令的通用接口，富文本格式操作的核心，提供了一系列指定命令的执行和状态查询方法（如对选区内容执行字体加粗命令、查询当前选区内容是否处于加粗状态）</p>
+<p><strong>undoManager：</strong>撤销重做的堆栈，记录内容变化过程</p>
+<p><strong>domUtils：</strong>Dom 操作方法集</p>
+<p><img src="/img/contenteditable/contenteditable-3.jpg"></p>
+<p>可以利用上面这些核心方法组合出一些实用的工具，比如在 UEditor 中非常重要的过滤规则体系，就是利用了 eventBase 与 uNode 的组合实现的（通过对 eventbase 封装了注册规则的方法和执行过滤的方法，参数就是根据编辑器内容的 dom 转化而来的 uNode 对象，基于该对象执行具体的过滤）</p>
+<p><img src="/img/contenteditable/contenteditable-4.jpg"></p>
+<p>整个 UEditor 正是围绕着这些核心对象构建的，并且在此基础上提供了大量的 API 以便开发者进行定制化的开发，显然作为一个 contenteditable 编辑器它已经足够成熟了</p>
+<p>但在实际的生产环境中，面对不同的产品需求我们依然需要处理一些棘手的情况</p>
+<h3 id="固定结构内容"><a href="#固定结构内容" class="headerlink" title="固定结构内容"></a>固定结构内容</h3><p>一个常见的场景是，固定结构内容，比如图片与图片注释</p>
+<p><img src="/img/contenteditable/contenteditable-5.jpg" alt="编辑器内的表现"></p>
+<p>这就是一个典型的固定结构内容，编辑器中出现了一个不可更改的固定搭配，即图片后面必须跟着注释输入框</p>
+<p>来看看要实现这个需求需要考虑哪些要问题</p>
+<ol>
+<li>图片和注释元素必须一对一</li>
+<li>图片和注释元素的位置顺序不能改变</li>
+<li>光标不允许插入到固定结构中间</li>
+<li>光标可以定位在注释元素里</li>
+<li>注释元素里只能放纯文本</li>
+</ol>
+<p>contenteditable 编辑器的设计原则之一是编辑器内的一切内容皆可自由编辑，而固定结构元素某种程度上违背了这一原则，这会带来很多问题，用户有太多方法可以破坏你预设的结构</p>
+<p>一种常见的解决方案是将固定结构的元素包裹在一个不可编辑元素内，并为其中的可交互元素独立设置交互事件（比如点击输入、粘贴内容过滤）</p>
+<p><img src="/img/contenteditable/contenteditable-6.jpg" alt="不可编辑的固定结构内容"></p>
+<p>但这还不够，有几个问题：</p>
+<ol>
+<li>编辑器中存在不可编辑元素，会有浏览器兼容性的问题，如火狐浏览器下光标无法正确移动甚至无法删除这个元素</li>
+<li>两个不可编辑器的块级元素在相邻位置时，光标无法插入中间，退格键也会同时删除多个</li>
+<li>复制粘贴这个内容，结构可能会错乱</li>
+<li>其他操作也可能会破坏结构</li>
+</ol>
+<p>为了解决上述问题，就需要劫持用户的光标操作（鼠标点击、方向键、退格键），同时设立一套结构规则来检查当前结构是否有错乱</p>
+<p><img src="/img/contenteditable/contenteditable-7.gif" alt="预览一下效果"></p>
+<p>简而言之，就是通过劫持，判断光标是否处于不可编辑元素的最近位置，符合条件时，用自定义行为代理浏览器默认的选择、删除、复制剪切等行为</p>
+<p>再通过对光标移动事件（onSelectionChange）的监听，检查内容中的固定结构是否符合规则（如两个不可编辑元素之间必须至少存在一个用于插入光标的空行标签等）</p>
+<p><img src="/img/contenteditable/contenteditable-8.jpg"></p>
+<p>面对固定结构内容，根据不同的使用场景，可以有两种解决方案，</p>
+<p>对于结构简单但需要进行交互的场景，就像图片注释那样，可以使用前面提到的 contenteditable=false+行为劫持+过滤规则的方式实现</p>
+<p>对于结构较为复杂但不需要进行交互或交互场景较为简单的情况，则可以使用 canvas 来实现</p>
+<p><img src="/img/contenteditable/contenteditable-9.jpg" alt="canvas生成的固定结构内容"></p>
+<p>使用 canvas 的好处是不用担心结构问题，这完全就是一张图片，如果在文章发布后需要其他交互也可以在详情页将之转化为正常的 DOM 结构，缺点是生成的图片需要上传至图片服务器这会占用额外的存储资源</p>
+<p>另一个需要考虑的问题是在 safari 浏览器下如果画布上有其他域过来的图片，就算设置了允许跨域也会被 safari 的安全策略 block[SecurityError (DOM Exception 18): The operation is insecure.]，这就可能需要使用本地占位图来解决</p>
+<p>可以根据实际情况来选择解决方案</p>
+<h3 id="光标"><a href="#光标" class="headerlink" title="光标"></a>光标</h3><p>除此之外，UE 也存在一些作为 contenteditable 编辑器的通病，一个最常见的问题就是光标的视觉位置与逻辑位置的问题</p>
+<p>试想有这么一段标红的粗体文本</p>
+<p><img src="/img/contenteditable/contenteditable-10.png"></p>
+<p>当我们将光标放在这段文字的开头，我们会发现，光标的实际位置有 4 种可能</p>
+<ul>
+<li><code>|&lt;p&gt;&lt;span ...</code></li>
+<li><code>&lt;p&gt;|&lt;span class=&quot;font-color-red-01&quot;&gt;...</code></li>
+<li><code>&lt;p&gt;&lt;span class=&quot;font-color-red-01&quot;&gt;|&lt;strong&gt;...</code></li>
+<li><code>&lt;p&gt;&lt;span class=&quot;font-color-red-01&quot;&gt;&lt;strong&gt;|text content</code></li>
+</ul>
+<p>尽管视觉上的表现没有什么区别，但光标在不同位置时用户进行某些操作就会产生不同的结果</p>
+<p><img src="/img/contenteditable/contenteditable-11.gif"></p>
+<blockquote>
+<p>原本我们只是想用退格键将标题上移一行，但由于光标位置在 <code>&lt;h1&gt;|...&lt;/h1&gt;</code> 的位置上，结果将标题的格式也给清空了</p>
+</blockquote>
+<p>解决方法也很简单，还是 劫持=&gt;判断=&gt;代理，这也是编辑器对光标进行严格控制的通用解决方案</p>
+<h3 id="撤销重做堆栈"><a href="#撤销重做堆栈" class="headerlink" title="撤销重做堆栈"></a>撤销重做堆栈</h3><p>撤销重做堆栈也是一个问题，正常情况下 undoManager 会按照一个最小时间段自动记录每一次的内容变化，以便用户撤销回上一步的状态，但这也会带来一些问题，试想一个这样的场景</p>
+<p>我们从本地插入一张图片，这张图片最终需要上传到服务器上，所以我们先在编辑器内插入了一个占位图，然后开始上传本地图片，等服务器返回了正确的图片地址后，再将正确的图片元素替换到占位图所在的位置上，顺便为图片添加图片注释的组件</p>
+<p><img src="/img/contenteditable/contenteditable-12.gif"></p>
+<p>那么 （插入占位图 =&gt; 上传图片 =&gt; 替换占位图 =&gt; 添加附加组件）就是一个完整的事件流，如果 undoManager 单独记录了这个事件流中每一个步骤，当用户执行撤销操作的时候就会出现问题</p>
+<p>因此我们需要为自动记录设置一个暂停开关，这样就可以控制 undoManager 的记录时机</p>
+<h3 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h3><p>为了使编辑器更加稳定，我们还可以通过 eventBase 来设计某些事件的生命周期钩子</p>
+<p>比如可以分发撤销、重做操作完成前后的回调来做一系列额外的处理，也可以对图片上传的过程分发钩子函数</p>
+<p>富文本编辑器的话题其实远不止上面这些，比如如何优雅的与编辑器内元素进行交互，如何由 State 驱动 Dom，如何做移动端的适配，表格操作等等，每一点都可以深入探讨，篇幅有限，这里就不再展开</p>
+<p>总结一下，基于 contenteditable 编辑器稳定可靠的定制开发要注意的几个点</p>
+<ol>
+<li>严格控制内容（格式规则检查、内容输入和输出过滤）</li>
+<li>严格控制光标（劫持、检查、代理）</li>
+<li>控制撤销重做堆栈</li>
+<li>为一些关键操作添加生命周期钩子</li>
+</ol>
+</div><div class="article-licensing box"><div class="licensing-title"><p>深入浅出 contenteditable 富文本编辑器</p><p><a href="https://kainonly.com/front-end/contenteditable/">https://kainonly.com/front-end/contenteditable/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kain</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-05-13</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-05-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="" rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p></div></div></div></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/knowledge/opensource/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">关于开源协议，你知多少</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/ops/linux_ip/"><span class="level-item">Linux IP 管理</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://kainonly.com/front-end/contenteditable/';
+            this.page.identifier = 'front-end/contenteditable/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'kains-note' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#基于-HTML-DOM-的-Contenteditable-属性来实现"><span class="level-left"><span class="level-item">基于 HTML DOM 的 Contenteditable 属性来实现</span></span></a></li><li><a class="level is-mobile" href="#基于自定义-Model-的实现"><span class="level-left"><span class="level-item">基于自定义 Model 的实现</span></span></a></li><li><a class="level is-mobile" href="#来看看它们是怎么做的吧"><span class="level-left"><span class="level-item">来看看它们是怎么做的吧</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#固定结构内容"><span class="level-left"><span class="level-item">固定结构内容</span></span></a></li><li><a class="level is-mobile" href="#光标"><span class="level-left"><span class="level-item">光标</span></span></a></li><li><a class="level is-mobile" href="#撤销重做堆栈"><span class="level-left"><span class="level-item">撤销重做堆栈</span></span></a></li><li><a class="level is-mobile" href="#生命周期钩子"><span class="level-left"><span class="level-item">生命周期钩子</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">前端技术</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">后端技术</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%89%8B%E8%AE%B0/"><span class="level-start"><span class="level-item">手记</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="level-start"><span class="level-item">数据库</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">运维技术</span></span><span class="level-end"><span class="level-item tag">35</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/angular/"><span class="tag">angular</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/certbot/"><span class="tag">certbot</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debian/"><span class="tag">debian</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debian-ubuntu/"><span class="tag">debian ubuntu</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/electron/"><span class="tag">electron</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/emqx/"><span class="tag">emqx</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/golang/"><span class="tag">golang</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/javascript/"><span class="tag">javascript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">13</span></a></div><div class="control"><a class="tags has-addons" href="/tags/lumen/"><span class="tag">lumen</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/macos/"><span class="tag">macos</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nats/"><span class="tag">nats</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nodejs/"><span class="tag">nodejs</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/openssl/"><span class="tag">openssl</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/postgsql/"><span class="tag">postgsql</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/satis/"><span class="tag">satis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/shell/"><span class="tag">shell</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/window/"><span class="tag">window</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="Kain&#039;s Notes" height="28"></a><p class="is-size-7"><span>&copy; 2021 Kain</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7"><a href="https://beian.miit.gov.cn" target="_blank">琼ICP备18004473号</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/kainonly"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

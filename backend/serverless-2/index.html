@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Serverless：这真的是未来吗？ - Kain&#039;s Notes</title><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://kainonly.com/backend/serverless-2/"},"headline":"Serverless：这真的是未来吗？","image":["https://kainonly.com/img/og_image.png"],"datePublished":"2021-05-28T00:57:25.303Z","dateModified":"2021-05-28T01:03:44.244Z","author":{"@type":"Person","name":"Kain"},"description":"许多说所有应用程序都将是无服务器的应用程序的人并未大规模运行其应用程序，也未解决与延迟、复杂性和供应商锁定有关的所有问题。这就是我们在这里要谈论的。 作者：Serverless 社区链接：https:&#x2F;&#x2F;juejin.cn&#x2F;post&#x2F;6963874301154066468"}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/vs2015.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=G-J0NVPEBDTM" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-J0NVPEBDTM');</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="Kain&#039;s Notes" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" target="_blank" rel="noopener" href="https://www.yuque.com/kainonly">语雀</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/archives">归档</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/kainonly"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-28T00:57:25.303Z" title="2021/5/28 上午8:57:25">2021-05-28</time>发表</span><span class="level-item"><time dateTime="2021-05-28T01:03:44.244Z" title="2021/5/28 上午9:03:44">2021-05-28</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/">后端技术</a></span><span class="level-item">9 分钟读完 (大约1328个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">Serverless：这真的是未来吗？</h1><div class="content"><p>许多说所有应用程序都将是无服务器的应用程序的人并未大规模运行其应用程序，也未解决与延迟、复杂性和供应商锁定有关的所有问题。这就是我们在这里要谈论的。</p>
+<p>作者：Serverless 社区<br>链接：<a target="_blank" rel="noopener" href="https://juejin.cn/post/6963874301154066468">https://juejin.cn/post/6963874301154066468</a></p>
+<span id="more"></span>
+
+<h2 id="供应商锁定怎么办？"><a href="#供应商锁定怎么办？" class="headerlink" title="供应商锁定怎么办？"></a>供应商锁定怎么办？</h2><p>你有多关心厂商锁定问题？例如：你很可能无法将 AWS 中的无服务器架构转移到另一个云提供商。有些组织不关心厂商锁定问题，但很多组织关心。如果你真的在乎，那么在你继续前进之前，请决定你应该在乎多少。</p>
+<h2 id="您的组织有多大？"><a href="#您的组织有多大？" class="headerlink" title="您的组织有多大？"></a>您的组织有多大？</h2><p>无服务器对于较年轻的组织或较小的组织来说是一个很好的选择，也许大型组织中的新手团队直接关注于交付价值。一旦组织发展到足够大，可以支持专门管理基础设施的团队了，并且使用率增长了，可能就该重新评估情况了。成功采用无服务器平台的大型组织往往是经历了文化转变才获得成功。如果您还没有准备好在组织的所有级别上进行大量投资，以使无服务器的采用获得成功，那么使用更传统的方法（由专门的团队控制供应基础设施）可能更合适。 最后，正如在前一篇文章中所讨论的，大型企业可能想要考虑构建一个基础设施平台，在那里像 Kubernetes 这样的技术可以受益。</p>
+<h2 id="架构是什么样的呢？"><a href="#架构是什么样的呢？" class="headerlink" title="架构是什么样的呢？"></a>架构是什么样的呢？</h2><p>需要考虑的一点是无服务器的产品和更”传统”的方法在思维方式上的显著差异，这意味着当切换平台时，应用程序可能经常需要重新设计。您可能需要考虑这些体系结构更改的 ROI 是什么。通常，从时间和财务的角度来看，任何应用程序的重新设计都是昂贵的，甚至会给最成功的工程团队带来问题。</p>
+<p>无论您是在开发一个新开发的应用程序还是评估一个现有的应用程序，考虑无服务器应用程序的架构都是很重要的。传统的 N 层风格的体系结构或 N 层风格的 web 应用程序需要大量的投资才能迁移到无服务器的平台。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总而言之，无服务器并不能解决所有问题，但是在正确的地方可以提供很多服务。请记住以下问题：</p>
+<ul>
+<li>您有多在乎供应商锁定？</li>
+</ul>
+<p>无服务器架构不能简单地从一个云提供商迁移到另一家云提供商。您的组织在多大程度上关心供应商锁定？</p>
+<ul>
+<li>您的组织规模是多大？</li>
+</ul>
+<p>无服务器通常更适合小型组织。一旦有了 IT 员工来支持它，您可能想看看更传统的选择。大型企业可能希望研究 Kubernetes。</p>
+<ul>
+<li>您是否比提供应用程序透明性更关心快速提供价值？</li>
+</ul>
+<p>如果您希望尽快将应用程序推向市场，那么无服务器可能是一个不错的选择。但是，您将牺牲应用程序的指标和洞察力。随着规模的增长，这可能会导致真正的问题。</p>
+<ul>
+<li>您了解应用程序的属性吗？</li>
+</ul>
+<p>通常说无服务器可以省钱，因为您只需为使用时间付费。但是，如果您的应用程序具有较长的响应或启动时间，请仔细观察。无服务器可能是一个昂贵的选择。</p>
+<ul>
+<li>您的应用程序的体系结构是什么样的？</li>
+</ul>
+<p>不要期望传统的端层风格的体系结构能够很好地与无服务器的应用程序配合使用。寻找可以分解成更小的组件一起工作的应用程序。另一方面，将无服务器应用程序迁移到您控制的服务器也需要重新构建应用程序。你有时间和人去做吗？</p>
+<ul>
+<li>无服务器是绕过 IT 的一种方法吗？</li>
+</ul>
+<p>使用无服务器作为绕过 IT 部门的方法可能不是最好的主意。编写不合规且容易受到攻击的代码太容易了。相反，请使用 DevOps 方法并与所有利益相关者会面以提出解决方案。</p>
+<ul>
+<li>安全性如何？</li>
+</ul>
+<p>无服务器架构的安全性存在问题。云提供商提供了一些现成的选项，例如 Amazon GuardDuty，但是它们可能有很多限制，限制了无服务器提供的灵活性。实现安全的无服务器应用程序需要大量的思考。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Serverless：这真的是未来吗？</p><p><a href="https://kainonly.com/backend/serverless-2/">https://kainonly.com/backend/serverless-2/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kain</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-05-28</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-05-28</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="" rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p></div></div></div></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/front-end/es6_note/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">容易被忽略的ES6方法</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/knowledge/sm/"><span class="level-item">国密算法</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://kainonly.com/backend/serverless-2/';
+            this.page.identifier = 'backend/serverless-2/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'kains-note' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#供应商锁定怎么办？"><span class="level-left"><span class="level-item">供应商锁定怎么办？</span></span></a></li><li><a class="level is-mobile" href="#您的组织有多大？"><span class="level-left"><span class="level-item">您的组织有多大？</span></span></a></li><li><a class="level is-mobile" href="#架构是什么样的呢？"><span class="level-left"><span class="level-item">架构是什么样的呢？</span></span></a></li><li><a class="level is-mobile" href="#总结"><span class="level-left"><span class="level-item">总结</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">前端技术</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">后端技术</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%89%8B%E8%AE%B0/"><span class="level-start"><span class="level-item">手记</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="level-start"><span class="level-item">数据库</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">运维技术</span></span><span class="level-end"><span class="level-item tag">35</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/angular/"><span class="tag">angular</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/certbot/"><span class="tag">certbot</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debian/"><span class="tag">debian</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debian-ubuntu/"><span class="tag">debian ubuntu</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/electron/"><span class="tag">electron</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/emqx/"><span class="tag">emqx</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/golang/"><span class="tag">golang</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/javascript/"><span class="tag">javascript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">13</span></a></div><div class="control"><a class="tags has-addons" href="/tags/lumen/"><span class="tag">lumen</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/macos/"><span class="tag">macos</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nats/"><span class="tag">nats</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nodejs/"><span class="tag">nodejs</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/openssl/"><span class="tag">openssl</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/postgsql/"><span class="tag">postgsql</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/satis/"><span class="tag">satis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/shell/"><span class="tag">shell</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/window/"><span class="tag">window</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="Kain&#039;s Notes" height="28"></a><p class="is-size-7"><span>&copy; 2021 Kain</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7"><a href="https://beian.miit.gov.cn" target="_blank">琼ICP备18004473号</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/kainonly"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

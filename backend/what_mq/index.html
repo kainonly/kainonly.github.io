@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>消息队列是什么 - Kain&#039;s Notes</title><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://kainonly.com/backend/what_mq/"},"headline":"消息队列是什么","image":["https://kainonly.com/img/what_mq/mq1.jpg","https://kainonly.com/img/what_mq/mq2.jpg","https://kainonly.com/img/what_mq/mq3.jpg","https://kainonly.com/img/what_mq/mq4.jpg","https://kainonly.com/img/what_mq/mq5.jpg","https://kainonly.com/img/what_mq/mq6.jpg","https://kainonly.com/img/what_mq/mq7.jpg"],"datePublished":"2021-05-19T00:41:39.340Z","dateModified":"2021-05-26T00:52:02.119Z","author":{"@type":"Person","name":"Kain"},"description":"对于 MQ 来说，其实不管是 RocketMQ、Kafka 还是其他消息队列，它们的本质都是：一发一存一消费。下面我们以这个本质作为根，一起由浅入深地聊聊 MQ。 作者：Lowry链接：https:&#x2F;&#x2F;www.zhihu.com&#x2F;question&#x2F;54152397&#x2F;answer&#x2F;1802083263"}</script><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/vs2015.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><script src="https://www.googletagmanager.com/gtag/js?id=G-J0NVPEBDTM" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-J0NVPEBDTM');</script><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.png" alt="Kain&#039;s Notes" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">首页</a><a class="navbar-item" target="_blank" rel="noopener" href="https://www.yuque.com/kainonly">语雀</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a><a class="navbar-item" href="/archives">归档</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="GitHub" href="https://github.com/kainonly"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><time dateTime="2021-05-19T00:41:39.340Z" title="2021/5/19 上午8:41:39">2021-05-19</time>发表</span><span class="level-item"><time dateTime="2021-05-26T00:52:02.119Z" title="2021/5/26 上午8:52:02">2021-05-26</time>更新</span><span class="level-item"><a class="link-muted" href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/">后端技术</a></span><span class="level-item">28 分钟读完 (大约4271个字)</span></div></div><h1 class="title is-3 is-size-4-mobile">消息队列是什么</h1><div class="content"><p>对于 MQ 来说，其实不管是 RocketMQ、Kafka 还是其他消息队列，它们的本质都是：<strong>一发一存一消费</strong>。下面我们以这个本质作为根，一起由浅入深地聊聊 MQ。</p>
+<p>作者：Lowry<br>链接：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/54152397/answer/1802083263">https://www.zhihu.com/question/54152397/answer/1802083263</a></p>
+<span id="more"></span>
+
+<h2 id="01-从-MQ-的本质说起"><a href="#01-从-MQ-的本质说起" class="headerlink" title="01 从 MQ 的本质说起"></a>01 从 MQ 的本质说起</h2><p>将 MQ 掰开了揉碎了来看，都是「一发一存一消费」，再直白点就是一个「转发器」。</p>
+<p>生产者先将消息投递一个叫做「队列」的容器中，然后再从这个容器中取出消息，最后再转发给消费者，仅此而已。</p>
+<p><img src="/img/what_mq/mq1.jpg"></p>
+<p>上面这个图便是消息队列最原始的模型，它包含了两个关键词：消息和队列。</p>
+<ol>
+<li>消息：就是要传输的数据，可以是最简单的文本字符串，也可以是自定义的复杂格式（只要能按预定格式解析出来即可）。</li>
+<li>队列：大家应该再熟悉不过了，是一种先进先出数据结构。它是存放消息的容器，消息从队尾入队，从队头出队，入队即发消息的过程，出队即收消息的过程。</li>
+</ol>
+<h2 id="02-原始模型的进化"><a href="#02-原始模型的进化" class="headerlink" title="02 原始模型的进化"></a>02 原始模型的进化</h2><p>再看今天我们最常用的消息队列产品（RocketMQ、Kafka 等等），你会发现：它们都在最原始的消息模型上做了扩展，同时提出了一些新名词，比如：主题（topic）、分区（partition）、队列（queue）等等。</p>
+<p>要彻底理解这些五花八门的新概念，我们化繁为简，先从消息模型的演进说起<strong>（道理好比：架构从来不是设计出来的，而是演进而来的）</strong></p>
+<h3 id="2-1-队列模型"><a href="#2-1-队列模型" class="headerlink" title="2.1 队列模型"></a>2.1 队列模型</h3><p>最初的消息队列就是上一节讲的原始模型，它是一个严格意义上的队列（Queue）。消息按照什么顺序写进去，就按照什么顺序读出来。不过，队列没有 “读” 这个操作，读就是出队，从队头中 “删除” 这个消息。</p>
+<p><img src="/img/what_mq/mq2.jpg"></p>
+<p>这便是队列模型：它允许多个生产者往同一个队列发送消息。但是，如果有多个消费者，实际上是竞争的关系，也就是一条消息只能被其中一个消费者接收到，读完即被删除。</p>
+<h3 id="2-2-发布-订阅模型"><a href="#2-2-发布-订阅模型" class="headerlink" title="2.2 发布-订阅模型"></a>2.2 发布-订阅模型</h3><p>如果需要将一份消息数据分发给多个消费者，并且每个消费者都要求收到全量的消息。很显然，队列模型无法满足这个需求。</p>
+<p>一个可行的方案是：为每个消费者创建一个单独的队列，让生产者发送多份。这种做法比较笨，而且同一份数据会被复制多份，也很浪费空间。</p>
+<p>为了解决这个问题，就演化出了另外一种消息模型：发布-订阅模型。</p>
+<p><img src="/img/what_mq/mq3.jpg"></p>
+<p>在发布-订阅模型中，存放消息的容器变成了 “主题”，订阅者在接收消息之前需要先 “订阅主题”。最终，每个订阅者都可以收到同一个主题的全量消息。</p>
+<p>仔细对比下它和 “队列模式” 的异同：生产者就是发布者，队列就是主题，消费者就是订阅者，无本质区别。唯一的不同点在于：一份消息数据是否可以被多次消费。</p>
+<h3 id="2-3-小结"><a href="#2-3-小结" class="headerlink" title="2.3 小结"></a>2.3 小结</h3><p>最后做个小结，上面两种模型说白了就是：单播和广播的区别。而且，当发布-订阅模型中只有 1 个订阅者时，它和队列模型就一样了，因此在功能上是完全兼容队列模型的。</p>
+<p>这也解释了为什么现代主流的 RocketMQ、Kafka 都是直接基于发布-订阅模型实现的？此外，RabbitMQ 中之所以有一个 Exchange 模块？其实也是为了解决消息的投递问题，可以变相实现发布-订阅模型。</p>
+<p>包括大家接触到的 “消费组”、“集群消费”、“广播消费” 这些概念，都和上面这两种模型相关，以及在应用层面大家最常见的情形：组间广播、组内单播，也属于此范畴。</p>
+<p>所以，先掌握一些共性的理论，对于大家再去学习各个消息中间件的具体实现原理时，其实能更好地抓住本质，分清概念。</p>
+<h2 id="03-透过模型看-MQ-的应用场景"><a href="#03-透过模型看-MQ-的应用场景" class="headerlink" title="03 透过模型看 MQ 的应用场景"></a>03 透过模型看 MQ 的应用场景</h2><p>目前，MQ 的应用场景非常多，大家能倒背如流的是：系统解耦、异步通信和流量削峰。除此之外，还有延迟通知、最终一致性保证、顺序消息、流式处理等等。</p>
+<p>那到底是先有消息模型，还是先有应用场景呢？答案肯定是：先有应用场景（也就是先有问题），再有消息模型，因为消息模型只是解决方案的抽象而已。</p>
+<p>MQ 经过 30 多年的发展，能从最原始的队列模型发展到今天百花齐放的各种消息中间件（平台级的解决方案），我觉得万变不离其宗，还是得益于：消息模型的适配性很广。</p>
+<p>我们试着重新理解下消息队列的模型。它其实解决的是：生产者和消费者的通信问题。那它对比 RPC 有什么联系和区别呢？</p>
+<p><img src="/img/what_mq/mq4.jpg"></p>
+<p>通过对比，能很明显地看出两点差异：</p>
+<ol>
+<li>引入 MQ 后，由之前的一次 RPC 变成了现在的两次 RPC，而且生产者只跟队列耦合，它根本无需知道消费者的存在。</li>
+<li>多了一个中间节点「队列」进行消息转储，相当于将同步变成了异步。</li>
+</ol>
+<p>再返过来思考 MQ 的所有应用场景，就不难理解 MQ 为什么适用了？因为这些应用场景无外乎都利用了上面两个特性。</p>
+<p>举一个实际例子，比如说电商业务中最常见的「订单支付」场景：在订单支付成功后，需要更新订单状态、更新用户积分、通知商家有新订单、更新推荐系统中的用户画像等等。</p>
+<p><img src="/img/what_mq/mq5.jpg"></p>
+<p>引入 MQ 后，订单支付现在只需要关注它最重要的流程：更新订单状态即可。其他不重要的事情全部交给 MQ 来通知。这便是 MQ 解决的最核心的问题：系统解耦。</p>
+<p>改造前订单系统依赖 3 个外部系统，改造后仅仅依赖 MQ，而且后续业务再扩展（比如：营销系统打算针对支付用户奖励优惠券），也不涉及订单系统的修改，从而保证了核心流程的稳定性，降低了维护成本。</p>
+<p>这个改造还带来了另外一个好处：因为 MQ 的引入，更新用户积分、通知商家、更新用户画像这些步骤全部变成了异步执行，能减少订单支付的整体耗时，提升订单系统的吞吐量。这便是 MQ 的另一个典型应用场景：异步通信。</p>
+<p>除此以外，由于队列能转储消息，对于超出系统承载能力的场景，可以用 MQ 作为 “漏斗” 进行限流保护，即所谓的流量削峰。</p>
+<p>我们还可以利用队列本身的顺序性，来满足消息必须按顺序投递的场景；利用队列 + 定时任务来实现消息的延时消费 ……</p>
+<p>MQ 其他的应用场景基本类似，都能回归到消息模型的特性上，找到它适用的原因，这里就不一一分析了。</p>
+<p>总之，就是建议大家多从复杂多变的实践场景再回归到理论层面进行思考和抽象，这样能吃得更透。</p>
+<h2 id="04-如何设计一个-MQ？"><a href="#04-如何设计一个-MQ？" class="headerlink" title="04 如何设计一个 MQ？"></a>04 如何设计一个 MQ？</h2><p>了解了上面这些理论知识以及应用场景后，下面我们再一起看下：到底如何设计一个 MQ？</p>
+<h3 id="4-1-MQ-的雏形"><a href="#4-1-MQ-的雏形" class="headerlink" title="4.1 MQ 的雏形"></a>4.1 MQ 的雏形</h3><p>我们还是先从简单版的 MQ 入手，如果只是实现一个很粗糙的 MQ，完全不考虑生产环境的要求，该如何设计呢？</p>
+<p>文章开头说过，任何 MQ 无外乎：一发一存一消费，这是 MQ 最核心的功能需求。另外，从技术维度来看 MQ 的通信模型，可以理解成：两次 RPC + 消息转储。</p>
+<p>有了这些理解，我相信只要有一定的编程基础，不用 1 个小时就能写出一个 MQ 雏形：</p>
+<ol>
+<li>直接利用成熟的 RPC 框架（Dubbo 或者 Thrift），实现两个接口：发消息和读消息。</li>
+<li>消息放在本地内存中即可，数据结构可以用 JDK 自带的 <code>ArrayBlockingQueue</code>。</li>
+</ol>
+<h3 id="4-2-写一个适用于生产环境的-MQ"><a href="#4-2-写一个适用于生产环境的-MQ" class="headerlink" title="4.2 写一个适用于生产环境的 MQ"></a>4.2 写一个适用于生产环境的 MQ</h3><p>当然，我们的目标绝不止于一个 MQ 雏形，而是希望实现一个可用于生产环境的消息中间件，那难度肯定就不是一个量级了，具体我们该如何下手呢？</p>
+<h4 id="1、先把握这个问题的关键点"><a href="#1、先把握这个问题的关键点" class="headerlink" title="1、先把握这个问题的关键点"></a>1、先把握这个问题的关键点</h4><p>假如我们还是只考虑最基础的功能：发消息、存消息、消费消息（支持发布-订阅模式）。</p>
+<p>那在生产环境中，这些基础功能将面临哪些挑战呢？我们能很快想到下面这些：</p>
+<ol>
+<li>高并发场景下，如何保证收发消息的性能？</li>
+<li>如何保证消息服务的高可用和高可靠？</li>
+<li>如何保证服务是可以水平任意扩展的？</li>
+<li>如何保证消息存储也是水平可扩展的？</li>
+<li>各种元数据（比如集群中的各个节点、主题、消费关系等）如何管理，需不需要考虑数据的一致性？</li>
+</ol>
+<p>可见，高并发场景下的三高问题在你设计一个 MQ 时都会遇到，「如何满足高性能、高可靠等非功能性需求」才是这个问题的关键所在。</p>
+<h4 id="2、整体设计思路"><a href="#2、整体设计思路" class="headerlink" title="2、整体设计思路"></a>2、整体设计思路</h4><p>先来看下整体架构，会涉及三类角色：</p>
+<p><img src="/img/what_mq/mq6.jpg"></p>
+<p>另外，将「一发一存一消费」这个核心流程进一步细化后，比较完整的数据流如下：</p>
+<p><img src="/img/what_mq/mq7.jpg"></p>
+<p>基于上面两个图，我们可以很快明确出 3 类角色的作用，分别如下：</p>
+<ol>
+<li>Broker（服务端）：MQ 中最核心的部分，是 MQ 的服务端，核心逻辑几乎全在这里，它为生产者和消费者提供 RPC 接口，负责消息的存储、备份和删除，以及消费关系的维护等。</li>
+<li>Producer（生产者）：MQ 的客户端之一，调用 Broker 提供的 RPC 接口发送消息。</li>
+<li>Consumer（消费者）：MQ 的另外一个客户端，调用 Broker 提供的 RPC 接口接收消息，同时完成消费确认。</li>
+</ol>
+<h4 id="3、详细设计"><a href="#3、详细设计" class="headerlink" title="3、详细设计"></a>3、详细设计</h4><p>下面，再展开讨论下一些具体的技术难点和可行的解决方案。</p>
+<h5 id="难点-1：RPC-通信"><a href="#难点-1：RPC-通信" class="headerlink" title="难点 1：RPC 通信"></a>难点 1：RPC 通信</h5><p>解决的是 Broker 与 Producer 以及 Consumer 之间的通信问题。如果不重复造轮子，直接利用成熟的 RPC 框架 Dubbo 或者 Thrift 实现即可，这样不需要考虑服务注册与发现、负载均衡、通信协议、序列化方式等一系列问题了。</p>
+<p>当然，你也可以基于 Netty 来做底层通信，用 Zookeeper、Euraka 等来做注册中心，然后自定义一套新的通信协议（类似 Kafka），也可以基于 AMQP 这种标准化的 MQ 协议来做实现（类似 RabbitMQ）。对比直接用 RPC 框架，这种方案的定制化能力和优化空间更大。</p>
+<h5 id="难点-2：高可用设计"><a href="#难点-2：高可用设计" class="headerlink" title="难点 2：高可用设计"></a>难点 2：高可用设计</h5><p>高可用主要涉及两方面：Broker 服务的高可用、存储方案的高可用。可以拆开讨论。</p>
+<p>Broker 服务的高可用，只需要保证 Broker 可水平扩展进行集群部署即可，进一步通过服务自动注册与发现、负载均衡、超时重试机制、发送和消费消息时的 ack 机制来保证。</p>
+<p>存储方案的高可用有两个思路：1）参考 Kafka 的分区 + 多副本模式，但是需要考虑分布式场景下数据复制和一致性方案（类似 Zab、Raft 等协议），并实现自动故障转移；2）还可以用主流的 DB、分布式文件系统、带持久化能力的 KV 系统，它们都有自己的高可用方案。</p>
+<h5 id="难点-3：存储设计"><a href="#难点-3：存储设计" class="headerlink" title="难点 3：存储设计"></a>难点 3：存储设计</h5><p>消息的存储方案是 MQ 的核心部分，可靠性保证已经在高可用设计中谈过了，可靠性要求不高的话直接用内存或者分布式缓存也可以。这里重点说一下存储的高性能如何保证？这个问题的决定因素在于存储结构的设计。</p>
+<p>目前主流的方案是：追加写日志文件（数据部分） + 索引文件的方式（很多主流的开源 MQ 都是这种方式），索引设计上可以考虑稠密索引或者稀疏索引，查找消息可以利用跳转表、二份查找等，还可以通过操作系统的页缓存、零拷贝等技术来提升磁盘文件的读写性能。</p>
+<p>如果不追求很高的性能，也可以考虑现成的分布式文件系统、KV 存储或者数据库方案。</p>
+<h5 id="难点-4：消费关系管理"><a href="#难点-4：消费关系管理" class="headerlink" title="难点 4：消费关系管理"></a>难点 4：消费关系管理</h5><p>为了支持发布-订阅的广播模式，Broker 需要知道每个主题都有哪些 Consumer 订阅了，基于这个关系进行消息投递。</p>
+<p>由于 Broker 是集群部署的，所以消费关系通常维护在公共存储上，可以基于 Zookeeper、Apollo 等配置中心来管理以及进行变更通知。</p>
+<h5 id="难点-5：高性能设计"><a href="#难点-5：高性能设计" class="headerlink" title="难点 5：高性能设计"></a>难点 5：高性能设计</h5><p>存储的高性能前面已经谈过了，当然还可以从其他方面进一步优化性能。</p>
+<p>比如 Reactor 网络 IO 模型、业务线程池的设计、生产端的批量发送、Broker 端的异步刷盘、消费端的批量拉取等等</p>
+<h4 id="4-3-小结"><a href="#4-3-小结" class="headerlink" title="4.3 小结"></a>4.3 小结</h4><p>再总结下，要回答好：如何设计一个 MQ？</p>
+<ol>
+<li>需要从功能性需求（收发消息）和非功能性需求（高性能、高可用、高扩展等）两方面入手。</li>
+<li>功能性需求不是重点，能覆盖 MQ 最基础的功能即可，至于延时消息、事务消息、重试队列等高级特性只是锦上添花的东西。</li>
+<li>最核心的是：能结合功能性需求，理清楚整体的数据流，然后顺着这个思路去考虑非功能性的诉求如何满足，这才是技术难点所在。</li>
+</ol>
+<h2 id="05-写在最后"><a href="#05-写在最后" class="headerlink" title="05 写在最后"></a>05 写在最后</h2><p>上面这些内容从 MQ 一发一存一消费这个本质出发，讲解了消息模型的演进过程，这是 MQ 最核心的理论基础。基于此，大家也能更容易理解 MQ 的各种新名词以及应用场景。</p>
+<p>最后通过回答：如何设计一个 MQ？目的是让大家对 MQ 的核心组件和技术难点有一个清晰的认识。另外，带着这个问题的答案再去学习 Kafka、RocketMQ 等具体的消息中间件时，也会更有侧重点。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>消息队列是什么</p><p><a href="https://kainonly.com/backend/what_mq/">https://kainonly.com/backend/what_mq/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kain</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2021-05-19</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2021-05-26</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icon" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a><a class="" rel="noopener" target="_blank" title="CC BY-NC-SA 4.0" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a></p></div></div></div></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/knowledge/what_pda/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">产品开发各阶段缩写</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/front-end/npm/"><span class="level-item">Npm 常用命令</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">评论</h3><div id="disqus_thread"><noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div><script>var disqus_config = function () {
+            this.page.url = 'https://kainonly.com/backend/what_mq/';
+            this.page.identifier = 'backend/what_mq/';
+        };
+        (function() {
+            var d = document, s = d.createElement('script');  
+            s.src = '//' + 'kains-note' + '.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();</script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1 is-sticky"><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#01-从-MQ-的本质说起"><span class="level-left"><span class="level-item">01 从 MQ 的本质说起</span></span></a></li><li><a class="level is-mobile" href="#02-原始模型的进化"><span class="level-left"><span class="level-item">02 原始模型的进化</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#2-1-队列模型"><span class="level-left"><span class="level-item">2.1 队列模型</span></span></a></li><li><a class="level is-mobile" href="#2-2-发布-订阅模型"><span class="level-left"><span class="level-item">2.2 发布-订阅模型</span></span></a></li><li><a class="level is-mobile" href="#2-3-小结"><span class="level-left"><span class="level-item">2.3 小结</span></span></a></li></ul></li><li><a class="level is-mobile" href="#03-透过模型看-MQ-的应用场景"><span class="level-left"><span class="level-item">03 透过模型看 MQ 的应用场景</span></span></a></li><li><a class="level is-mobile" href="#04-如何设计一个-MQ？"><span class="level-left"><span class="level-item">04 如何设计一个 MQ？</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#4-1-MQ-的雏形"><span class="level-left"><span class="level-item">4.1 MQ 的雏形</span></span></a></li><li><a class="level is-mobile" href="#4-2-写一个适用于生产环境的-MQ"><span class="level-left"><span class="level-item">4.2 写一个适用于生产环境的 MQ</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#1、先把握这个问题的关键点"><span class="level-left"><span class="level-item">1、先把握这个问题的关键点</span></span></a></li><li><a class="level is-mobile" href="#2、整体设计思路"><span class="level-left"><span class="level-item">2、整体设计思路</span></span></a></li><li><a class="level is-mobile" href="#3、详细设计"><span class="level-left"><span class="level-item">3、详细设计</span></span></a></li><li><a class="level is-mobile" href="#4-3-小结"><span class="level-left"><span class="level-item">4.3 小结</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#05-写在最后"><span class="level-left"><span class="level-item">05 写在最后</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">分类</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">前端技术</span></span><span class="level-end"><span class="level-item tag">18</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%90%8E%E7%AB%AF%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">后端技术</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%89%8B%E8%AE%B0/"><span class="level-start"><span class="level-item">手记</span></span><span class="level-end"><span class="level-item tag">12</span></span></a></li><li><a class="level is-mobile" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"><span class="level-start"><span class="level-item">数据库</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/"><span class="level-start"><span class="level-item">运维技术</span></span><span class="level-end"><span class="level-item tag">35</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">标签</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/angular/"><span class="tag">angular</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="/tags/certbot/"><span class="tag">certbot</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debian/"><span class="tag">debian</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="/tags/debian-ubuntu/"><span class="tag">debian ubuntu</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/docker/"><span class="tag">docker</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/electron/"><span class="tag">electron</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/emqx/"><span class="tag">emqx</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/golang/"><span class="tag">golang</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/javascript/"><span class="tag">javascript</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/linux/"><span class="tag">linux</span><span class="tag">13</span></a></div><div class="control"><a class="tags has-addons" href="/tags/lumen/"><span class="tag">lumen</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/macos/"><span class="tag">macos</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/mysql/"><span class="tag">mysql</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nats/"><span class="tag">nats</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nginx/"><span class="tag">nginx</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/nodejs/"><span class="tag">nodejs</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/openssl/"><span class="tag">openssl</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="/tags/php/"><span class="tag">php</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/postgsql/"><span class="tag">postgsql</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/python/"><span class="tag">python</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/redis/"><span class="tag">redis</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="/tags/satis/"><span class="tag">satis</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/shell/"><span class="tag">shell</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/window/"><span class="tag">window</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.png" alt="Kain&#039;s Notes" height="28"></a><p class="is-size-7"><span>&copy; 2021 Kain</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7"><a href="https://beian.miit.gov.cn" target="_blank">琼ICP备18004473号</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="GitHub" href="https://github.com/kainonly"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

@@ -1,0 +1,31 @@
+nz-layout,
+.inner-layout {
+  height: 100%;
+}
+
+.nav {
+  text-align: center;
+  margin-top: -25%;
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+  h1 {
+    font-size: 60px;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  h3 {
+    font-size: 20px;
+    margin: 1em 0 2.5em;
+  }
+}
+
+.right {
+  height: 100%;
+  background: #fff;
+  text-align: center;
+  padding-top: 3em;
+}

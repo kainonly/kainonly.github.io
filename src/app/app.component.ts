@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NzIconService } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   projects = [
     {
       name: 'ngx-bit',
@@ -16,4 +17,10 @@ export class AppComponent {
       url: 'https://github.com/kainonly/go-bit'
     }
   ];
+
+  constructor(private icon: NzIconService) {}
+
+  ngOnInit(): void {
+    this.icon.changeAssetsSource('https://cdn.kainonly.com');
+  }
 }

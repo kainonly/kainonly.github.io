@@ -2,45 +2,63 @@
   <div class="inner-layout" nz-row nzAlign="middle">
     <div nz-col [nzSpan]="10">
       <div class="nav">
-        <h2>HELLO, I'M</h2>
+        <h2>你好, 我是</h2>
         <h1>KAIN</h1>
-        <h3>Full Stack & DevOps</h3>
-        <button nz-button nzType="primary" nzSize="large" nzShape="round">
-          <b>View My Work</b>
-        </button>
+        <h3>全栈 & DevOps 工程师</h3>
+        <h4><i nz-icon nzType="environment"></i> 现居，海南 · 三亚</h4>
+        <a nz-button nzType="primary" nzSize="large" nzShape="round" href="https://github.com/kainonly">
+          <i nz-icon nzType="github"></i>
+          关注我
+        </a>
       </div>
     </div>
     <div class="right" nz-col [nzSpan]="14">
-      <div nz-row [nzGutter]="[24, 24]" nzJustify="center">
-        <div nz-col [nzSpan]="12">
-          <article nz-typography>
-            <h1 nz-typography>About Me</h1>
-            <p nz-typography>
-              A full stack engineer and an open source worker, exploring the application scenarios of DevOps, low code
-              and microservices
-            </p>
-          </article>
-        </div>
-        <div nz-col [nzSpan]="24">
-          <div nz-row [nzGutter]="[8, 8]">
-            <div nz-col [nzSpan]="8">
-              <nz-card>
-                <p>Card content</p>
-              </nz-card>
-            </div>
-            <div nz-col [nzSpan]="8">
-              <nz-card>
-                <p>Card content</p>
-              </nz-card>
-            </div>
-            <div nz-col [nzSpan]="8">
-              <nz-card>
-                <p>Card content</p>
-              </nz-card>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ng-scrollbar>
+        <article nz-typography>
+          <h2 nz-typography>
+            Hi, Here
+            <img height="30" src="/assets/wave.gif" alt="" />
+          </h2>
+          <p nz-typography>
+            一个全栈 DevOps 工程师，热爱开源，对云计算、低代码、微服务和DevOps等很感兴趣
+            <br />
+            尝试探索出一种简单高效的方式运用在应用中
+          </p>
+          <figure>
+            <img
+              src="https://github-readme-stats.vercel.app/api?username=kainonly&show_icons=true&hide_border=true&locale=cn"
+              alt="github"
+            />
+          </figure>
+          <nz-divider nzDashed></nz-divider>
+          <figure>
+            <embed
+              src="https://wakatime.com/share/@af41afe2-6df2-4059-b756-c24617adfa03/16843305-941c-4eb5-ad42-befc496afd31.svg"
+            />
+          </figure>
+          <figure>
+            <embed
+              src="https://wakatime.com/share/@af41afe2-6df2-4059-b756-c24617adfa03/7c0f88b6-a085-4687-aec9-13f2c1905f2a.svg"
+            />
+          </figure>
+          <nz-divider nzDashed></nz-divider>
+          <h2 nz-typography>活跃项目</h2>
+          <ng-container *ngFor="let x of projects">
+            <figure>
+              <a target="_blank" [href]="x.url">
+                <img [src]="x.name | Pin" [alt]="x.name" />
+              </a>
+            </figure>
+          </ng-container>
+        </article>
+        <footer>
+          <nz-space>
+            <a *nzSpaceItem target="_blank" nz-button nzType="text" href="https://beian.miit.gov.cn/#/Integrated/index">
+              琼ICP备18004473号
+            </a>
+          </nz-space>
+        </footer>
+      </ng-scrollbar>
     </div>
   </div>
 </nz-layout>

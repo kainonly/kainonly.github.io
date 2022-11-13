@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-content',
@@ -7,10 +7,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./content.component.scss']
 })
 export class ContentComponent implements OnInit {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   data: any[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({

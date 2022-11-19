@@ -1,0 +1,27 @@
+baseURL: https://www.kainonly.com
+title: Web 应用技术分享
+
+module:
+  imports:
+    - path: github.com/alex-shpak/hugo-book
+
+disablePathToLower: true
+enableEmoji: true
+enableGitInfo: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  tableOfContents:
+    startLevel: 1
+
+menu:
+  after:
+    - name: Github
+      url: https://github.com/kainonly
+    - name: 琼 ICP 备 18004473 号
+      url: https://beian.miit.gov.cn/
+
+params:
+  BookMenuBundle: /menu

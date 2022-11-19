@@ -1,6 +1,7 @@
 ---
-title: Home
 bookToC: false
+title: Home
+type: docs
 ---
 
 {{< columns >}}

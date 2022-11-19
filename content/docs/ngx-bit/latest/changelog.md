@@ -1,9 +1,10 @@
 ---
-weight: 0
-title: 更新日志
+title: 更新记录
 ---
 
-## 11.4.0
+# 更新记录
+
+## v11.4.0
 
 ### New Features
 
@@ -70,19 +71,19 @@ export class AppModule {
 - 废弃 `ngx-bit/factory` 并迁移至 `ngx-bit` 下导出
 - 废弃 `ngx-bit/operates` 中的 `getQuerySchema(options: SearchOption[]): any[]` ，将其并入 `ListByPage` 类的静态函数
 
-<a name="11.3.0"></a>
+---
 
-## 11.3.0
+## v11.3.0
+
+### New Features
 
 新增 `bit-transport` 批量上传按钮
 
-<a name="11.2.0"></a>
+---
 
-## 11.2.0
+## v11.2.0
 
 优化路由定位
-
-<a name="d73823de-1"></a>
 
 ### Breaking Changes
 
@@ -90,9 +91,11 @@ export class AppModule {
 - `bit-cross-level` 与 `crossLevel(selector: string): void` 分别变更为 `bit-history` 与 `history(key: string): void`
 - Routes `path` 标准化，由 `/{any}` 变更为 `/any`
 
-<a name="11.1.3"></a>
+---
 
-## 11.1.3
+## v11.1.3
+
+### New Features
 
 SearchOption 增加 Format，例如：
 
@@ -100,23 +103,23 @@ SearchOption 增加 Format，例如：
 { field: 'time', op: 'between', value: [], format: 'unixtime' }
 ```
 
-<a name="11.1.2"></a>
+---
 
-## 11.1.2
+## v11.1.2
 
 解除 `<bit-search-start>` 限制
 
-<a name="11.1.1"></a>
+---
 
-## 11.1.1
+## v11.1.1
+
+### Fixed
 
 完善 `BitSupportService` 下 `unsubscribe`，修复退出登录后面包屑未清零的问题
 
-<a name="11.1.0"></a>
+---
 
-## 11.1.0
-
-<a name="d73823de-2"></a>
+## v11.1.0
 
 ### Breaking Changes
 
@@ -132,8 +135,6 @@ SearchOption 增加 Format，例如：
 - `nzIconService.changeAssetsSource` 需要自行调用
 - `SearchOption` 废弃 `must`，替换为 `exclude` 作为排除值，默认为 `['', 0, null]`
 
-<a name="602a4e81-1"></a>
-
 ### New Features
 
 - 丰富统一配置，增加更多配置项定义
@@ -141,9 +142,11 @@ SearchOption 增加 Format，例如：
 - 增加语言包模板函数 `print` 、管道 `PrintPipe` 与组件 `<bit-print></bit-print>`
 - 增加页头填充 `<bit-header></bit-header>` 顶部公告 `nz-alert[bitBanner]`
 
-<a name="11.0.1"></a>
+---
 
-## 11.0.1
+## v11.0.1
+
+### New Features
 
 增加指令选择器，精确监听事件，例如：`input[bitSearchStart]` 下 `click` 事件不在触发
 
@@ -152,8 +155,8 @@ SearchOption 增加 Format，例如：
 - `selector: '[bitStatusChange]'` 变更为 `selector: 'nz-switch[bitStatusChange]'`
 - `selector: '[bitUpload]'` 变更为 `selector: 'nzUpload[bitUpload]'`
 
-<a name="11.0.0"></a>
+## v11.0.0
 
-## 11.0.0
+### Upgrade
 
 升级所有组件至 Angular 11

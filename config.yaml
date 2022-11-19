@@ -16,6 +16,8 @@ markup:
       unsafe: true
   tableOfContents:
     startLevel: 1
+  highlight:
+    style: vs
 
 menu:
   after:
@@ -25,3 +27,4 @@ menu:
       url: https://beian.miit.gov.cn/
 
 params:
+  BookTheme: light

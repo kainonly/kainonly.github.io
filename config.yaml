@@ -1,5 +1,6 @@
 baseURL: https://www.kainonly.com
 title: Web 应用技术分享
+defaultContentLanguage: cn
 
 module:
   imports:
@@ -18,10 +19,9 @@ markup:
 
 menu:
   after:
-    - name: Github
+    - name: GITHUB
       url: https://github.com/kainonly
     - name: 琼 ICP 备 18004473 号
       url: https://beian.miit.gov.cn/
 
 params:
-  BookMenuBundle: /menu

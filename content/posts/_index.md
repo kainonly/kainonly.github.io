@@ -3,5 +3,5 @@ menu:
   after:
     name: note
     weight: 5
-title: Note
+title: 小记
 ---

@@ -1,41 +1,25 @@
 ---
-title: Introduction
-type: docs
+title: Home
+bookToC: false
 ---
 
-# Acerbo datus maxime
-
 {{< columns >}}
-## Astris ipse furtiva
 
-Est in vagis et Pittheus tu arge accipiter regia iram vocatur nurus. Omnes ut
-olivae sensit **arma sorori** deducit, inesset **crudus**, ego vetuere aliis,
-modo arsit? Utinam rapta fiducia valuere litora _adicit cursu_, ad facies
+# Hi, I'm Kain!
+
+A full stack engineer, and Open source contributor
+
+![](https://raw.githubusercontent.com/kainonly/kainonly/main/metrics.plugin.achievements.svg)
+![](https://raw.githubusercontent.com/kainonly/kainonly/main/metrics.plugin.followup.svg)
+![](https://raw.githubusercontent.com/kainonly/kainonly/main/metrics.plugin.topics.icons.svg)
+![](https://raw.githubusercontent.com/kainonly/kainonly/main/metrics.plugin.wakatime.svg)
+![](https://raw.githubusercontent.com/kainonly/kainonly/main/metrics.plugin.isocalendar.fullyear.svg)
 
 <--->
 
-## Suis quot vota
+# WakaTime
 
-Ea _furtique_ risere fratres edidit terrae magis. Colla tam mihi tenebat:
-miseram excita suadent es pecudes iam. Concilio _quam_ velatus posset ait quod
-nunc! Fragosis suae dextra geruntur functus vulgata.
+<figure><embed src="https://wakatime.com/share/@af41afe2-6df2-4059-b756-c24617adfa03/186199b5-46e6-4820-989d-12858d679c47.svg"></embed></figure>
+<figure><embed src="https://wakatime.com/share/@af41afe2-6df2-4059-b756-c24617adfa03/ab9cc652-601f-4c4f-98d0-40fc14775f98.svg"></embed></figure>
+
 {{< /columns >}}
-
-
-## Tempora nisi nunc
-
-Lorem **markdownum** emicat gestu. Cannis sol pressit ducta. **Est** Idaei,
-tremens ausim se tutaeque, illi ulnis hausit, sed, lumina cutem. Quae avis
-sequens!
-
-    var panel = ram_design;
-    if (backup + system) {
-        file.readPoint = network_native;
-        sidebar_engine_device(cell_tftp_raster,
-                dual_login_paper.adf_vci.application_reader_design(
-                graphicsNvramCdma, lpi_footer_snmp, integer_model));
-    }
-
-## Locis suis novi cum suoque decidit eadem
-
-Idmoniae ripis, at aves, ali missa adest, ut _et autem_, et ab?

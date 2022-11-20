@@ -7,7 +7,6 @@ module:
     - path: github.com/alex-shpak/hugo-book
 
 disablePathToLower: true
-enableEmoji: true
 enableGitInfo: true
 
 markup:

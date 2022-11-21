@@ -25,5 +25,9 @@ menu:
     - name: 琼 ICP 备 18004473 号
       url: https://beian.miit.gov.cn/
 
+googleAnalytics: "G-J0NVPEBDTM"
+
+disqusShortname: "web-ying-yong-ji-zhu-fen-xiang"
+
 params:
   BookTheme: light

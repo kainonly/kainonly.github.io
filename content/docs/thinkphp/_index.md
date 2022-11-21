@@ -1,6 +1,6 @@
 ---
-weight: 20
+weight: 30
 bookFlatSection: true
 bookCollapseSection: true
-title: NGX-BIT
+title: THINKPHP
 ---

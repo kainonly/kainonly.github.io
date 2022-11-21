@@ -1,6 +1,6 @@
 ---
-weight: 20
+weight: 10
 bookFlatSection: true
 bookCollapseSection: true
-title: NGX-BIT
+title: WEPLANX
 ---

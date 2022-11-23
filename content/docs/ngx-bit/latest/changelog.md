@@ -2,8 +2,6 @@
 title: 更新记录
 ---
 
-# 更新记录
-
 ## v11.4.0
 
 ### New Features

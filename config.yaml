@@ -1,10 +1,8 @@
 baseURL: https://www.kainonly.com
 title: Web 应用技术分享
-#defaultContentLanguage: cn
+defaultContentLanguage: zh
 theme: hugo-book
-
 disablePathToLower: true
-enableGitInfo: true
 
 markup:
   goldmark:

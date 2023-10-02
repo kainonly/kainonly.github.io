@@ -1,7 +1,7 @@
 ---
 menu:
   after:
-    name: note
-    weight: 5
-title: 小记
+    name: posts
+    weight: 1
+title: 小记与收藏
 ---

@@ -12,7 +12,7 @@ This is where I collect good articles and summarize notes
 
 It is only in Chinese, but it's nice to meet you, we can follow each other's [Github](https://github.com/kainonly)🤓
 
-~ Love coding, hobby is still coding, tossing distributed, open source
+~ Love coding, hobby is still coding, exploring distributed, open source
 
 Currently focusing on cloud-native Kubernetes, ~~Docker~~, the technology stack is mainly Golang, NoSQL, Nats, ~~PHP, Node, RabbitMQ~~, MySQL
 

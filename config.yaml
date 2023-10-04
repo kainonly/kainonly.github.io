@@ -24,7 +24,6 @@ languages:
     contentDir: content.en
     weight: 2
 
-
 menu:
   after:
     - name: E-Mail
@@ -53,4 +52,3 @@ disqusShortname: "web-ying-yong-ji-zhu-fen-xiang"
 params:
   BookTheme: light
   BookSearch: true
-  BookServiceWorker: true

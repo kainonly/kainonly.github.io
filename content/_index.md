@@ -15,6 +15,7 @@ type: docs
 正在研究 DevOps 与 LowCode 的实际运用，有点迷茫 -> 寻找突破中
 
 {{< button href="https://github.com/weplanx" >}}去看看 Weplanx{{< /button >}}
+{{< button href="https://wpx.kainonly.com" >}}手册{{< /button >}}
 
 *过去的一些技术文档被我迁 WPS 了：*
 

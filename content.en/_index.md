@@ -19,7 +19,7 @@ Currently focusing on cloud-native Kubernetes, ~~Docker~~, the technology stack 
 Looking into the practical use of DevOps and LowCode, a bit lost -> looking for a breakthrough
 
 {{< button href="https://github.com/weplanx" >}}Go to Weplanx{{< /button >}}
-{{< button href="https://wpx.kainonly.com/en/" >}}MANUAL{{< /button >}}
+{{< button href="https://wpx.kainonly.com" >}}MANUAL{{< /button >}}
 
 The following is the personal WAKATIME statistics
 

@@ -26,18 +26,9 @@ languages:
 
 menu:
   after:
-    - name: E-Mail
-      url: mailto:kainonly@qq.com
-      weight: 2
     - name: Lark
       url: https://www.larksuite.com/invitation/page/add_contact/?token=a0and176-69cb-46e2-a776-551a92o976t8&amp;unique_id=R3aPzwqbSYAesSkN8crtlw==
-      weight: 3
-    - name: Twitter
-      url: https://twitter.com/zhangtqx5915
-      weight: 4
-    - name: Slack
-      url: https://weplanx.slack.com/team/UAQ5FV6QP
-      weight: 5
+      weight: 2
     - name: Github
       url: https://github.com/kainonly
       weight: 9

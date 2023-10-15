@@ -12,7 +12,7 @@ type: docs
 
 目前专注云原生 Kubernetes、~~Docker~~，技术栈主要是 Golang、NoSQL、Nats、~~PHP、Node、RabbitMQ~~、MySQL
 
-正在研究 DevOps 与 LowCode 的实际运用，有点迷茫 -> 寻找突破中
+正在研究 DevOps 与 LowCode 的实际运用，寻找突破中
 
 {{< button href="https://github.com/weplanx" >}}去看看 Weplanx{{< /button >}}
 {{< button href="https://wpx.kainonly.com/zh/" >}}手册{{< /button >}}

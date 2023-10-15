@@ -16,7 +16,7 @@ It is only in Chinese, but it's nice to meet you, we can follow each other's [Gi
 
 Currently focusing on cloud-native Kubernetes, ~~Docker~~, the technology stack is mainly Golang, NoSQL, Nats, ~~PHP, Node, RabbitMQ~~, MySQL
 
-Looking into the practical use of DevOps and LowCode, a bit lost -> looking for a breakthrough
+Looking into the practical use of DevOps and LowCode, looking for a breakthrough
 
 {{< button href="https://github.com/weplanx" >}}Go to Weplanx{{< /button >}}
 {{< button href="https://wpx.kainonly.com" >}}MANUAL{{< /button >}}

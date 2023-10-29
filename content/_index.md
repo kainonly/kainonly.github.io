@@ -6,11 +6,11 @@ type: docs
 
 ## 👋 欢迎访问，我是 Kain
 
-全栈工程师，从事酒店领域，开源爱好者 [kainonly](https://github.com/kainonly) (来个关注吧 🤓)，这里是我收藏好文章和总结笔记的地方
+全栈工程师，从事酒店领域，开源爱好者 [kainonly](https://github.com/kainonly)
 
 ~爱好是 Coding、业余爱好还是 Coding、折腾分布式，搞开源
 
-目前专注云原生 Kubernetes、~~Docker~~，技术栈主要是 Golang、NoSQL、Nats、~~PHP、Node、RabbitMQ~~、MySQL
+目前专注云原生 Kubernetes，技术栈主要是 Angular、Golang、NoSQL、Nats
 
 正在研究 DevOps 与 LowCode 的实际运用，寻找突破中
 

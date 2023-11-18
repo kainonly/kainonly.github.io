@@ -6,40 +6,16 @@ type: docs
 
 ## 👋 欢迎访问，我是 Kain
 
-全栈工程师，从事酒店领域，开源爱好者 [kainonly](https://github.com/kainonly)
+全栈工程师 & DevOps，国内从事酒店互联网领域，开源爱好者
 
 ~爱好是 Coding、业余爱好还是 Coding、折腾分布式，搞开源
 
-目前专注云原生 Kubernetes，技术栈主要是 Angular、Golang、NoSQL、Nats
+目前专注云原生 Kubernetes，技术栈主要是 Node、Golang、Angular、NoSQL、Nats
 
 正在研究 DevOps 与 LowCode 的实际运用，寻找突破中
 
 {{< button href="https://github.com/weplanx" >}}去看看 Weplanx{{< /button >}}
 {{< button href="https://wpx.kainonly.com/zh/" >}}手册{{< /button >}}
-
-*过去的一些技术文档被我迁 WPS 了：*
-
-{{< columns >}}
-
-**NGX-BIT**
-
-- v11.x https://p.kdocs.cn/s/IPHCUBIALQ
-- v10.x https://p.kdocs.cn/s/IXOSUBIAIA
-- v9.x https://p.kdocs.cn/s/O3NSUBIALQ
-- v8.x https://p.kdocs.cn/s/I3ISUBIAD4
-- v7.x https://p.kdocs.cn/s/LDJSUBIAIA
-- v1.x https://p.kdocs.cn/s/K7ISUBIA7M
-
-<--->
-
-**THINK-BIT & Hyperf**
-
-- Think v6.0 https://p.kdocs.cn/s/TDCSUBIAIA
-- Think v5.1 https://p.kdocs.cn/s/YPCSUBIAEY
-- Think v5.0 https://p.kdocs.cn/s/G7DCUBIA7M
-- hyperf https://p.kdocs.cn/s/USXSUBIA7M
-
-{{< /columns >}}
 
 以下是个人的 WAKATIME 统计
 

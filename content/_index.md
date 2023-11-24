@@ -8,11 +8,11 @@ type: docs
 
 全栈工程师 & DevOps，国内从事酒店互联网领域，开源爱好者
 
-~爱好是 Coding、业余爱好还是 Coding、折腾分布式，搞开源
+~爱好是 Coding、业余爱好还是 Coding、探索分布式
 
-目前专注云原生 Kubernetes，技术栈主要是 Node、Golang、Angular、NoSQL、Nats
+目前专注云原生 Kubernetes，技术栈包含 Go、Node、PHP、Angular、MySQL、PostgreSQL、Redis、MongoDB、ElasticSearch、Nats
 
-正在研究 DevOps 与 LowCode 的实际运用，寻找突破中
+正在研究 DevOps 与 LowCode 的实际运用
 
 {{< button href="https://github.com/weplanx" >}}去看看 Weplanx{{< /button >}}
 {{< button href="https://wpx.kainonly.com/zh/" >}}手册{{< /button >}}

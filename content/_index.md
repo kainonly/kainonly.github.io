@@ -10,7 +10,9 @@ type: docs
 
 ~爱好是 Coding、业余爱好还是 Coding、探索分布式
 
-目前专注云原生 Kubernetes，技术栈包含 Go、Node、PHP、Angular、MySQL、PostgreSQL、Redis、MongoDB、ElasticSearch、Nats
+目前专注云原生 Kubernetes，技术栈包含：
+
+Go、Node、PHP、Angular、MySQL、PostgreSQL、Redis、MongoDB、ElasticSearch、Nats
 
 正在研究 DevOps 与 LowCode 的实际运用
 

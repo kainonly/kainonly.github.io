@@ -17,7 +17,7 @@ Go、Node、PHP、Angular、MySQL、PostgreSQL、Redis、MongoDB、ElasticSearch
 正在研究 DevOps 与 LowCode 的实际运用
 
 {{< button href="https://github.com/weplanx" >}}去看看 Weplanx{{< /button >}}
-{{< button href="https://wpx.kainonly.com/zh/" >}}手册{{< /button >}}
+{{< button href="https://weplanx.gitbook.io" >}}手册{{< /button >}}
 
 以下是个人的 WAKATIME 统计
 

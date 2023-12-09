@@ -17,7 +17,7 @@ Go, Node, PHP, Angular, MySQL, PostgreSQL, Redis, MongoDB, ElasticSearch, Nats
 Looking into the practical use of DevOps and LowCode
 
 {{< button href="https://github.com/weplanx" >}}Go to Weplanx{{< /button >}}
-{{< button href="https://wpx.kainonly.com" >}}MANUAL{{< /button >}}
+{{< button href="https://weplanx.gitbook.io" >}}MANUAL{{< /button >}}
 
 The following is the personal WAKATIME statistics
 

@@ -6,13 +6,11 @@ type: docs
 
 ## 👋 欢迎访问，我是 Kain
 
-全栈工程师 & DevOps，国内从事酒店互联网领域，开源爱好者
+全栈工程师 & DevOps，开源爱好者
 
-~爱好是 Coding、业余爱好还是 Coding、探索分布式
+~ 爱好是 Coding, 持续学习
 
-目前专注云原生 Kubernetes，技术栈包含：
-
-Go、Node、PHP、Angular、MySQL、PostgreSQL、Redis、MongoDB、ElasticSearch、Nats
+目前专注云原生 Kubernetes
 
 正在研究 DevOps 与 LowCode 的实际运用
 

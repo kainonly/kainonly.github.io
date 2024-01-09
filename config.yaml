@@ -1,0 +1,65 @@
+baseURL: https://www.kainonly.com
+title: Web 应用技术分享
+defaultContentLanguage: zh
+paginate: 5
+theme: PaperMod
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+outputs:
+  home:
+    - HTML
+    - JSON
+
+params:
+  assets:
+    favicon: favicon.png
+  homeInfoParams:
+    Title: 👋 Hi, there. I'm Kain
+    Content: 全栈工程师 & DevOps、独立开发者、三亚旅居
+  socialIcons:
+    - name: github
+      url: https://github.com/kainonly
+    - name: stackoverflow
+      url: https://stackoverflow.com/users/10020012/kain
+    - name: email
+      url: mailto:work@kainonly.com
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: [ "title" ]
+
+menu:
+  main:
+    - identifier: search
+      name: Search
+      url: search/
+      weight: 10
+    - identifier: categories
+      name: Categories
+      url: /categories/
+      weight: 20
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 30
+    - identifier: weplanx
+      name: WEPLANX
+      url: https://weplanx.gitbook.io
+      weight: 40
+
+
+markup:
+  highlight:
+    noClasses: false
+    style: github
+
+googleAnalytics: G-J0NVPEBDTM
+copyright: "[琼 ICP 备 18004473 号](https://beian.miit.gov.cn)"
+

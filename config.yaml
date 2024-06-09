@@ -18,7 +18,7 @@ params:
     favicon: favicon.png
   homeInfoParams:
     Title: 👋 Hi, there. I'm Kain
-    Content: 全栈工程师 & DevOps、独立开发者、三亚旅居
+    Content: 全栈工程师 & DevOps
   socialIcons:
     - name: github
       url: https://github.com/kainonly
